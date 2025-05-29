@@ -1,0 +1,233 @@
+Salon Haircut Website with MERN Stack (Future AI Integration)
+Project Overview
+You're building a salon service booking website using the MERN stack (MongoDB, Express.js, React.js, Node.js) with plans to add AI features later. Here's how to structure your project for both current needs and future AI integration.
+
+Project Directory Structure
+salon-booking-app/
+├── client/                  # Frontend (React)
+│   ├── public/              # Static files
+│   ├── src/
+│   │   ├── assets/          # Images, icons, etc.
+│   │   ├── components/      # Reusable UI components
+│   │   │   ├── common/      # Buttons, cards, etc.
+│   │   │   ├── layout/      # Header, footer, navigation
+│   │   │   └── sections/    # Page-specific components
+│   │   ├── pages/           # Main pages
+│   │   │   ├── Home/
+│   │   │   ├── About/
+│   │   │   ├── Services/
+│   │   │   ├── Contact/
+│   │   │   ├── Auth/        # Login/Signup
+│   │   │   └── Booking/     # Booking flow
+│   │   ├── contexts/        # React contexts
+│   │   ├── hooks/           # Custom hooks
+│   │   ├── services/        # API service calls
+│   │   ├── utils/           # Utility functions
+│   │   ├── styles/          # Global styles
+│   │   ├── App.js           # Main app component
+│   │   └── index.js         # Entry point
+│   └── package.json
+│
+├── server/                  # Backend (Node.js/Express)
+│   ├── config/              # Configuration files
+│   │   └── db.js            # Database connection
+│   ├── controllers/         # Route controllers
+│   ├── middlewares/         # Custom middlewares
+│   ├── models/              # MongoDB schemas
+│   ├── routes/              # API routes
+│   ├── services/            # Business logic
+│   ├── utils/               # Utility functions
+│   ├── app.js               # Express app setup
+│   └── server.js            # Server entry point
+│
+├── ai/                      # Future AI components
+│   ├── models/              # AI model files
+│   ├── services/            # AI service integration
+│   └── utils/               # AI helper functions
+│
+└── package.json             # Root package.json
+How the Project Works
+Frontend (React) Flow
+User Visits Website: Starts at Home page
+
+Navigation: User can browse through:
+
+About Us (company information)
+
+Services (list of salon services with prices)
+
+Contact Us (contact form)
+
+Login/Signup (authentication)
+
+Book Appointment (main feature)
+
+Booking Process:
+
+User selects services (haircut type, facial, massage, etc.)
+
+System shows total price and estimated wait time
+
+User pays ₹5 booking fee (non-refundable)
+
+System shows nearby salons sorted by distance
+
+User selects preferred salon and time slot
+
+Booking confirmation displayed
+
+Backend (Node.js/Express) Flow
+API Endpoints:
+
+/api/auth - Handles login/signup
+
+/api/services - Gets list of services
+
+/api/salons - Gets salon data
+
+/api/bookings - Handles bookings
+
+/api/payments - Processes payments
+
+Database (MongoDB) Schemas:
+
+User - Stores customer data
+
+Salon - Stores salon information (location, services, etc.)
+
+Service - Different salon services
+
+Booking - Appointment details
+
+Payment - Payment records
+
+Authentication:
+
+JWT (JSON Web Tokens) for secure login
+
+Password encryption
+
+Future AI Integration
+When you're ready to add AI features:
+
+AI Model Location:
+
+The main AI logic will reside in the /ai directory
+
+Can use pre-trained models or build custom ones
+
+AI Features to Add:
+
+Salon recommendation system (distance, price, wait time, ratings)
+
+Wait time prediction based on current bookings
+
+Optimal salon sorting algorithm
+
+AI Data Flow:
+
+Frontend sends user preferences/location to backend
+
+Backend processes this data through AI service
+
+AI analyzes salons based on multiple factors
+
+Returns sorted list of best options
+
+Possible AI Models:
+
+Recommendation systems (collaborative filtering)
+
+Regression models for wait time prediction
+
+Simple rule-based systems initially
+
+Key Connections Between Parts
+Frontend-Backend:
+
+React makes API calls to Express server using Axios/Fetch
+
+Express processes requests and returns JSON responses
+
+Backend-Database:
+
+Mongoose ODM connects Express to MongoDB
+
+Models define data structure and validation
+
+Future AI Integration:
+
+Express routes will call AI services when needed
+
+AI services will process data and return enhanced results
+
+Results flow back through same API structure
+
+Important Files to Understand
+Frontend:
+
+App.js - Main router for all pages
+
+services/api.js - Handles all API calls
+
+contexts/AuthContext.js - Manages user authentication state
+
+Backend:
+
+server.js - Starts the server
+
+app.js - Configures Express middleware/routes
+
+models/* - Define your database schemas
+
+routes/* - Define your API endpoints
+
+Database:
+
+Connection is established in config/db.js
+
+Models define how data is stored/retrieved
+
+Development Approach
+First Build Core Features:
+
+Basic website with pages
+
+Booking system without AI
+
+Simple salon listing sorted by distance
+
+Then Add AI Later:
+
+Create AI service that takes current salon list
+
+Enhances sorting with additional factors
+
+Plug this into existing API endpoints
+
+Keep AI Separate Initially:
+
+Build so core functionality works without AI
+
+AI becomes an enhancement layer
+
+This makes it easier to add/change later
+
+Tips for Future AI Integration
+Design Flexible APIs:
+
+Make your current endpoints return raw data
+
+Later you can add AI processing middleware
+
+Collect Relevant Data Now:
+
+Store salon ratings, wait times, locations
+
+This data will train your AI models later
+
+Keep AI Logic Separate:
+
+Isolate AI code in its own directory
+
+Makes it easier to update/replace models

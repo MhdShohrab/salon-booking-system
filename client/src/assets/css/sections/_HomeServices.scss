@@ -1,0 +1,62 @@
+// 3rd div home css.
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // EXACTLY 3 cards per row
+  gap: 3.5rem; // Medium horizontal and vertical space
+  justify-items: center; // Center cards horizontally inside columns
+  padding: 20px;
+}
+
+.text-3xl{
+  text-align: center;
+  text-shadow: #666;
+  font-size: 55px;
+  font-weight: bold;
+}
+
+.service-card {
+  width: 420px; // You can MANUALLY adjust this width as per your design
+  height: 420px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 45px 55px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  padding: 12px;
+  transition: transform 0.2s;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 0;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.card-body p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+

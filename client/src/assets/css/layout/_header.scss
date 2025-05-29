@@ -1,0 +1,74 @@
+.header{
+  margin: 0px;
+  background-color: black;
+  position: fixed;  // Makes navbar stick to viewport
+  top: 0;           // Positions at top of screen
+  left: 0;          // Ensures full width coverage
+  width: 100%;      // Takes full viewport width
+  z-index: 1000;    // Keeps navbar above other content
+}
+
+// isse sikho, comment out krke.
+.navbar { 
+  display: flex;
+  justify-content: space-between;   //do div ke bich gap rkhega.
+  align-items: center;
+  max-width: 1100px;  //do div ke bich me kitna gap rhega
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.navbrand {
+  // display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mhd {
+  font-size: 40px;
+  font-weight: 800;
+  color: white;
+  // text-transform: uppercase;
+  letter-spacing: 8px;
+}
+.salon{
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 2px;
+}
+.navlinks {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: black;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  position: relative;
+  padding: 50px 0;
+  text-decoration: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #e74c3c;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: #e74c3c;
+}
+

@@ -1,0 +1,21 @@
+// Using relative paths from scss/ directory
+// Base styles
+@use '../css/base/base' as *;
+
+// Components
+@use '../css/components/buttons' as *;
+@use '../css/components/cards' as *;
+@use '../css/components/forms' as *;
+
+// Layout
+@use '../css/layout/header' as *;
+@use '../css/layout/footers' as *;
+@use '../css/layout/grid' as *;
+
+// Sections
+@use '../css/sections/home' as *;
+@use '../css/sections/about' as *;
+@use '../css/sections/services' as *;
+@use '../css/sections/contact' as *;
+@use '../css/sections/appointment' as *;
+@use '../css/sections/HomeServices' as *;
