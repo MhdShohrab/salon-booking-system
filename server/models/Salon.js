@@ -13,15 +13,33 @@ const SalonSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  image: {
+    type: String,
+    default: "/images/default-salon.jpg",
+  },
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      required: true,
+      index: '2dsphere'
+    }
+  },
+  // For backward compatibility
   latitude: {
     type: Number,
-    required: true,
   },
   longitude: {
     type: Number,
-    required: true,
   },
   // add more fields as needed
 });
+
+// Create a compound index for faster geospatial queries
+SalonSchema.index({ location: '2dsphere' });
 
 module.exports = mongoose.model("Salon", SalonSchema);

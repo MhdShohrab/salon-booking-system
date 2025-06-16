@@ -12,19 +12,32 @@
 require('dotenv').config(); // <-- Must be the first thing
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 const connectDB = require('./config/db');
-const salonRoutes = require('./routes/salonRoutes'); // 👈 Correct path
 
-dotenv.config();
-connectDB(); // DB connection
+// Import routes
+const salonRoutes = require('./routes/salonRoutes');
+const authRoutes = require('./routes/auth');
+const bookingRoutes = require('./routes/bookings');
 
-const app = express(); // 👈 Define app before use
+// Connect to database
+connectDB();
+
+const app = express();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Mount routes// 4th div of home section(near by saloon)
-app.use('/api/salons', salonRoutes); // 👈 Now works fine
+// Mount routes
+app.use('/api/salons', salonRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/bookings', bookingRoutes);
+
+// Simple test route
+app.get('/', (req, res) => {
+  res.send('Salon booking API is running');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

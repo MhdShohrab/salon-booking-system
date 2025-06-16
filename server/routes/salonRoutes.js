@@ -38,21 +38,46 @@ router.get("/nearby", async (req, res) => {
   try {
     // Fetch all salons from the database
     const salons = await Salon.find();
-    // Compute distance for each salon if coordinates exist
-    const salonsWithDistance = await salons
-      ?.filter((salon) => salon?.location && salon?.location?.coordinates)
-      .map((salon) => {
-        const [lon, lat] = salon.location.coordinates; // GeoJSON format: [longitude, latitude]
-        const distance = getDistanceFromLatLonInMeters(
-          parseFloat(latitude),
-          parseFloat(longitude),
-          lat,
-          lon
-        );
-        return { ...salon._doc, distance };
-      });
+    console.log(`Found ${salons.length} salons in database`);
+    
+    // Compute distance for each salon
+    const salonsWithDistance = salons.map((salon) => {
+      let salonLat, salonLon;
+      
+      // Handle both data formats (new and old)
+      if (salon.location && salon.location.coordinates && salon.location.coordinates.length === 2) {
+        // New format - using GeoJSON [longitude, latitude]
+        [salonLon, salonLat] = salon.location.coordinates;
+      } else if (salon.latitude !== undefined && salon.longitude !== undefined) {
+        // Old format - separate latitude and longitude fields
+        salonLat = salon.latitude;
+        salonLon = salon.longitude;
+      } else {
+        // Skip salons without location data
+        return null;
+      }
+      
+      const distance = getDistanceFromLatLonInMeters(
+        parseFloat(latitude),
+        parseFloat(longitude),
+        salonLat,
+        salonLon
+      );
+      
+      return { 
+        _id: salon._id,
+        name: salon.name,
+        address: salon.address,
+        image: salon.image,
+        distance: distance
+      };
+    }).filter(salon => salon !== null);
+    
     // Sort salons by distance (nearest first)
     salonsWithDistance.sort((a, b) => a.distance - b.distance);
+    
+    console.log(`Returning ${salonsWithDistance.length} salons with distances`);
+    
     // Return the sorted salons
     res.json(salonsWithDistance);
   } catch (err) {
@@ -60,12 +85,5 @@ router.get("/nearby", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
-// oigesjghoehjrh
-
-// router.post('/nearby',async(req,res)=>{
-//   const {latitude , longitude, name} = req.body
-//   res.json(sa)
-// })
 
 module.exports = router;

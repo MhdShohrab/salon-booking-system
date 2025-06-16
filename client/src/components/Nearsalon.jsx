@@ -29,12 +29,17 @@ const NearSalon = () => {
           const res = await axios.get(
             `http://localhost:5000/api/salons/nearby?latitude=${latitude.toFixed(6)}&longitude=${longitude.toFixed(6)}`
           );
+          
+          console.log("API Response:", res.data); // Log the API response
        
-
-          setSalons(res.data.slice(0, 6)); // Show first 6 salons
+          if (res.data && res.data.length > 0) {
+            setSalons(res.data.slice(0, 6)); // Show first 6 salons
+          } else {
+            setError("No salons found nearby. Please try again later.");
+          }
         } catch (err) {
           console.error("API fetch error:", err);
-          setError("Failed to fetch nearby salons.");
+          setError("Failed to fetch nearby salons: " + (err.response?.data?.message || err.message));
         } finally {
           setLoading(false);
         }
@@ -54,25 +59,29 @@ const NearSalon = () => {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
-        <h2 className="our-services-heading">Nearby Salons ye hai shohrab</h2>
-        <div className="services-container">
-          {salons.map((salon) => (
-            <div key={salon._id} className="service-card">
-              <img
-                src={salon.image || "/images/default-salon.jpg"}
-                alt={salon.name}
-                className="card-img"
-              />
-              <div className="card-body">
-                <h3 className="card-title">{salon.name}</h3>
-                <div className="card-text">
-                  📏 {(salon.distance / 1000).toFixed(2)} km away
+        <h2 className="our-services-heading">Nearby Salons</h2>
+        {salons.length === 0 ? (
+          <div className="text-center">No nearby salons found.</div>
+        ) : (
+          <div className="services-container">
+            {salons.map((salon) => (
+              <div key={salon._id} className="service-card">
+                <img
+                  src={salon.image || "/images/default-salon.jpg"}
+                  alt={salon.name}
+                  className="card-img"
+                />
+                <div className="card-body">
+                  <h3 className="card-title">{salon.name}</h3>
+                  <div className="card-text">
+                    📏 {(salon.distance / 1000).toFixed(2)} km away
+                  </div>
+                  <p>{salon.address}</p>
                 </div>
-                <p>{salon.address}</p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
